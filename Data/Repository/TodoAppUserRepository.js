@@ -1,5 +1,5 @@
 import ITodoAppUserRepository from '../../Domain/Abstractions/ITodoAppUserRepository.js';
-import db from '../Schema/index.js'
+import db from '../Schema/MySql/user.model.js'
 
 export default class TodoAppUserRepository extends ITodoAppUserRepository{
 
@@ -7,8 +7,8 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
         super()
     }
     
-    getAllPostsOfUser = (User) => { };
-    getUserDetails = (User) => { };
+    getAllPostsOfUser = (user) => { };
+    getUserDetails = (user) => { };
 
     createUser = async (user) => {
 

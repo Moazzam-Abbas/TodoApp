@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import session from 'express-session'
 import { router as usersRoutes } from './routes/users.js';
 import { router as todoRoutes } from './routes/todo.js';
+import { router as oauthRoutes } from './routes/oauth.js';
+import { authenticateOAuth2 } from './middleware/authentications.js';
 const port = process.env.PORT || 3000;
 
 // middleware to memic authentication
@@ -26,8 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-
-app.use('/users', isAuthenticated, usersRoutes)
+//app.use('/users', isAuthenticated, usersRoutes)
+app.use('/oauth', oauthRoutes)
+app.use('/users', authenticateOAuth2, usersRoutes)
 app.use('/todo', isAuthenticated, todoRoutes)
 
 app.get('/', (req, res) => {

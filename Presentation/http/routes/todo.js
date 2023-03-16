@@ -1,6 +1,8 @@
 import express from 'express';
+import todoService from '../../../Service/todo.service.js';
+
 const router = express.Router()
-//import * as todoItemController from '../controllers/todo.controller.js'
+const todo_Service = new todoService();
 
 // middleware defined for later use that is specific to this router
 router.use((req, res, next) => {
@@ -8,18 +10,27 @@ router.use((req, res, next) => {
   next()
 })
 
-//router.post("/", todoItemController.create);
+router.route('/')
+  .get(async (req, res) => {
+    const response = await todo_Service.findAll();
+    res.send(response);
+  })
+  .post(async (req, res) => {
+    const response = await todo_Service.create(req.body);
+    res.send(response);
+  })
 
-// define the home page route for todo
-//router.route('/')
-//  .get(todoItemController.findAll)
-//  .post(todoItemController.create)
-//  .put(todoItemController.update)
-//  .delete(todoItemController.deleteOne)
 
-// ****route left for later user currently ignore*****
-router.get('/about', (req, res) => {
-  res.send('About todo')
+router.put('/:id', async (req, res) => {
+  const response = await todo_Service.update({id:req.params.id, body:req.body});
+  res.send(response);
 })
+
+
+router.delete('/:id', async (req, res) => {
+  const response = await todo_Service.deleteOne(req.params.id);
+  res.send(response);
+})
+
 
 export {router}

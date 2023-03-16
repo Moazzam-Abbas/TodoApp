@@ -1,7 +1,10 @@
 .DS_Store
 config/
 .env
-
+Application/
+.test2
+.test3
+.test
 # Logs
 logs
 *.log

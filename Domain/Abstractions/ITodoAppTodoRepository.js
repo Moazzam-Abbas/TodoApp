@@ -1,12 +1,8 @@
 export default class ITodoAppTodoRepository {
 
-    constructor() {
-        throw new Error('Cannot instantiate an interface');
-    }
-
-    createTodoItem = (Todo) => { };
+    createTodoItem = (todo) => { };
     findAllTodoItem = () => { };
-    UpdateTodoItem = (Todo) => { };
-    deleteTodoItem = (Todo) => { };
+    UpdateTodoItem = (todoRequestObj) => { };
+    deleteTodoItem = (todoId) => { };
 
 }

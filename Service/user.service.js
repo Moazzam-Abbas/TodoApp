@@ -3,12 +3,13 @@ import ITodoAppUserRepository from '../Domain/Abstractions/ITodoAppUserRepositor
 import UserFactory from '../Domain/Factories/UserFactory.js'
 import { v1 as uuidv1 } from 'uuid';
 import TodoAppUserRepository from '../Data/Repository/TodoAppUserRepository.js';
+import TodoAppUserMongoRepository from '../Data/Repository/TodoAppUserMongoRepository.js'
 
 export default class userService extends ITodoAppUserService {
 
   constructor() {
     super()
-    this.repo = new TodoAppUserRepository(); //need object here of repository interface implementation
+    this.repo = new TodoAppUserMongoRepository(); //need object here of repository interface implementation
   }
 
   getAllPostsOfUser = (req, res) => { };
@@ -17,7 +18,7 @@ export default class userService extends ITodoAppUserService {
   createUser = async (userRequestDTO) => {
 
     // Create a User from factory 
-    const user = UserFactory.create('User', {
+    const user = UserFactory.createUser('User', {
       id: uuidv1(),
       userName: userRequestDTO.userName,
       password: userRequestDTO.password
@@ -47,8 +48,8 @@ export default class userService extends ITodoAppUserService {
     return result;
   };
 
-  passwordCompatibilityCheck = (User) => { };
-  totalPostsCount = (User) => { };
+  passwordCompatibilityCheck = (user) => { };
+  totalPostsCount = (user) => { };
   
   
 }
