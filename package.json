@@ -5,7 +5,7 @@
   "description": "ToDoApp for concepts revision",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./Presentation/http/app.js",
+    "dev": "nodemon ./http/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
