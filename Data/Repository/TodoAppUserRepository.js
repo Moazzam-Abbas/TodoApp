@@ -1,5 +1,6 @@
 import ITodoAppUserRepository from '../../Domain/Abstractions/ITodoAppUserRepository.js';
-import db from '../Schema/MySql/user.model.js'
+import db from '../Schema/MySql/index.js'
+const {User} = db
 
 export default class TodoAppUserRepository extends ITodoAppUserRepository{
 
@@ -15,7 +16,7 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
        const responseMessage = await (async () => {
 
             try {
-                const result = await db.User.create(user);
+                const result = await User.create(user);
                 // user exists in the database now!
                 console.log(result instanceof db.User); // true
                 console.log(JSON.stringify(result)); // "result"
@@ -37,7 +38,7 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
                
                 try {
 
-                const result = await db.User.findAll();
+                const result = await User.findAll();
                 console.log(JSON.stringify(result)); // "result"
                 return result;
 
@@ -58,7 +59,7 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
          const responseMessage = await (async () => {
 
                 try {
-                    const result = await db.User.update(userRequestObj.body, {
+                    const result = await User.update(userRequestObj.body, {
                         where: {
                           id: userRequestObj.id
                         }
@@ -84,7 +85,7 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
 
           const responseMessage = await (async () => {
                 try {
-                    const result = await db.User.destroy({
+                    const result = await User.destroy({
                         where: {
                             id: userId
                         }
@@ -100,6 +101,29 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
              })();
 
              return responseMessage;
-     };
+    };
+
+    paginate = async (startIndex, endIndex) => {
+        const responseMessage = await (async () => {
+            
+            try {
+
+                  const { count, rows } = await User.findAndCountAll({
+                    limit: endIndex,
+                    offset: startIndex,
+                  });
+
+                 return { count: count, rows: rows}
+
+            } catch (error) {
+                return {
+                    error: error
+                  }
+            }
+
+        })();
+
+        return responseMessage;
+    };
 
 }

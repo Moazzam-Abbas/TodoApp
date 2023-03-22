@@ -93,5 +93,29 @@ export default class TodoAppTodoMongoRepository extends ITodoAppTodoRepository {
              return responseMessage;
      };
 
+    paginate = async (startIndex, endIndex) => {
+        const responseMessage = await (async () => {
+            try {
+               //// const count = await User.countDocuments()
+               //// const rows = await User.find().limit(endIndex).skip(startIndex)
+                const [count, rows] = await Promise.all([
+                    Todo.countDocuments(),
+                    Todo.find().limit(endIndex).skip(startIndex),
+                  ]);
+             ////    console.log(count)
+              //   console.log(JSON.stringify(rows))
+                 return { count: count, rows: rows}
+
+            } catch (error) {
+                return {
+                    error: error
+                  }
+            }
+
+        })();
+
+        return responseMessage;
+    };
+
 }
 

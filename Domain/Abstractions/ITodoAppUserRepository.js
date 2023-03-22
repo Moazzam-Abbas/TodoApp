@@ -1,5 +1,4 @@
 export default class ITodoAppUserRepository {
-
     
     getAllPostsOfUser = (user) => { };
     getUserDetails = (user) => { };
@@ -7,5 +6,6 @@ export default class ITodoAppUserRepository {
     findAllUser = async () => { };
     UpdateUser = async (userRequestObj) => { };
     deleteUser = async (userId) => { };
+    paginate = async (startIndex, endIndex) => { };
 
 }

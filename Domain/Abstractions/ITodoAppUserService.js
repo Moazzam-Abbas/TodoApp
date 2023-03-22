@@ -7,6 +7,7 @@ export default class ITodoAppUserService {
     findAllUser = async () => { };
     UpdateUser = async (userRequestObj) => { };
     deleteUser = async (userId) => { };
+    paginate = async (requestPage, requestlimit) => { }
     passwordCompatibilityCheck = (user) => { };
     totalPostsCount = (user) => { };
 

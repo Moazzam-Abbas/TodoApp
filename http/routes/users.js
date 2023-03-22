@@ -1,8 +1,9 @@
 import express from 'express';
 import userService from '../../Service/user.service.js';
+import {paginationMiddleware} from '../middleware/pagination.js';
 
 const router = express.Router()
-const user_Service = new userService();
+const user_Service = new userService(); //check later should implement depency injection here too
 
 // middleware defined for later use that is specific to this router
 router.use((req, res, next) => {
@@ -10,12 +11,11 @@ router.use((req, res, next) => {
   next()
 })
 
-router.route('/')
-  .get(async (req, res) => {
-    const response = await user_Service.findAllUser();
+router.get('/', paginationMiddleware(user_Service), async (req, res) => {
+    const response = await user_Service.findAllUser(req);
     res.send(response);
   })
-  .post(async (req, res) => {
+router.post('/', async (req, res) => {
     const response = await user_Service.createUser(req.body);
     res.send(response);
   })

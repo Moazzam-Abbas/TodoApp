@@ -31,7 +31,7 @@ app.use(bodyParser.json())
 //app.use('/users', isAuthenticated, usersRoutes)
 app.use('/oauth', oauthRoutes)
 app.use('/users', authenticateOAuth2, usersRoutes)
-app.use('/todo', isAuthenticated, todoRoutes)
+app.use('/todo', authenticateOAuth2, todoRoutes)
 
 app.get('/', (req, res) => {
   req.session.user = "logged in"

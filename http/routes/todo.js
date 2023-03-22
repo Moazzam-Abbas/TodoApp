@@ -1,5 +1,6 @@
 import express from 'express';
 import todoService from '../../Service/todo.service.js';
+import {paginationMiddleware} from '../middleware/pagination.js';
 
 const router = express.Router()
 const todo_Service = new todoService();
@@ -11,7 +12,7 @@ router.use((req, res, next) => {
 })
 
 router.route('/')
-  .get(async (req, res) => {
+  .get(paginationMiddleware(todo_Service), async (req, res) => {
     const response = await todo_Service.findAll();
     res.send(response);
   })

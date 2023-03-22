@@ -4,5 +4,6 @@ export default class ITodoAppTodoService {
  findAll = async () => { };
  update = async (todoRequestObj) => { };
  deleteOne = async (todoId) => { };
-
+ paginate = async (requestPage, requestlimit) => { }
+ 
 }

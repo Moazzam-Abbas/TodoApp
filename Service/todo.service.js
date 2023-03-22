@@ -8,7 +8,7 @@ export default class todoService extends ITodoAppTodoService {
 
   constructor() {
     super()
-    this.repo = new TodoAppTodoMongoRepository(); //need object here of repository interface implementation
+    this.repo = new TodoAppTodoRepository(); //need object here of repository interface implementation
   }
 
 // Create and Save a new ToDoItem
@@ -33,7 +33,7 @@ export default class todoService extends ITodoAppTodoService {
   findAll = async () => {
 
   const result = await this.repo.findAllTodoItem();
-  return result;
+  return {result: result};
 
  };
 
@@ -51,5 +51,42 @@ export default class todoService extends ITodoAppTodoService {
   const result = await this.repo.deleteTodoItem(todoId);
   return result;
 };
+
+  paginate = async (requestPage, requestlimit) => {
+
+  const result = {};
+
+  const page = parseInt(requestPage, 10) //req.query.page ? parseInt(req.query.page, 10) : 1;
+  const limit = parseInt(requestlimit, 10)
+  if (isNaN(page) || isNaN(limit)){
+    return result.error = "Invalid Pagination Limits"
+  }
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const { count, rows, error } = await this.repo.paginate(startIndex, limit);
+
+  if(error){
+    return result.error = "error while fetching rows or calculating total"
+  }
+
+  if (endIndex < count) {
+    result.next = {
+      page: page + 1,
+      limit: limit,
+    };
+  }
+  if (startIndex > 0) {
+    result.previous = {
+      page: page - 1,
+      limit: limit,
+  };
+}
+
+result.result = rows;
+  
+return result;
+  
+
+}
 
 }

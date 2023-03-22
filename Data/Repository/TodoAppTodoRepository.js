@@ -1,5 +1,6 @@
 import ITodoAppTodoRepository from '../../Domain/Abstractions/ITodoAppTodoRepository.js';
 import db from '../Schema/MySql/index.js'
+const {TodoItems} = db
 
 export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
 
@@ -13,7 +14,7 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
        const responseMessage = await (async () => {
 
             try {
-                const result = await db.TodoItems.create(todo);
+                const result = await TodoItems.create(todo);
                 // user exists in the database now!
                 console.log(result instanceof db.TodoItems); // true
                 console.log(JSON.stringify(result)); // "result"
@@ -35,7 +36,7 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
                
                 try {
 
-                const result = await db.TodoItems.findAll();
+                const result = await TodoItems.findAll();
                 console.log(JSON.stringify(result)); // "result"
                 return result;
 
@@ -56,7 +57,7 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
          const responseMessage = await (async () => {
 
                 try {
-                    const result = await db.TodoItems.update(todoRequestObj.body, {
+                    const result = await TodoItems.update(todoRequestObj.body, {
                         where: {
                           id: todoRequestObj.id
                         }
@@ -82,7 +83,7 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
 
           const responseMessage = await (async () => {
                 try {
-                    const result = await db.TodoItems.destroy({
+                    const result = await TodoItems.destroy({
                         where: {
                             id: todoId
                         }
@@ -98,7 +99,30 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
              })();
 
              return responseMessage;
-     };
+    };
 
+    paginate = async (startIndex, endIndex) => {
+        const responseMessage = await (async () => {
+            
+            try {
+
+                  const { count, rows } = await TodoItems.findAndCountAll({
+                    limit: endIndex,
+                    offset: startIndex,
+                  });
+
+                 return { count: count, rows: rows}
+
+            } catch (error) {
+                return {
+                    error: error
+                  }
+            }
+
+        })();
+
+        return responseMessage;
+    };
+    
 }
 
