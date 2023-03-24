@@ -1,5 +1,5 @@
 import ITodoAppUserRepository from '../../Domain/Abstractions/ITodoAppUserRepository.js';
-import db from '../Schema/MySql/index.js'
+import db from '../DB/MySql/models/index.js'
 const {User} = db
 
 export default class TodoAppUserRepository extends ITodoAppUserRepository{

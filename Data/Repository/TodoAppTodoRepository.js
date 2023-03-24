@@ -1,5 +1,5 @@
 import ITodoAppTodoRepository from '../../Domain/Abstractions/ITodoAppTodoRepository.js';
-import db from '../Schema/MySql/index.js'
+import db from '../DB/MySql/models/index.js'
 const {TodoItems} = db
 
 export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
