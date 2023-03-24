@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('Data/DB/MySql/config/config.cjs'),
+  'models-path': path.resolve('Data/DB/MySql/models'),
+  'seeders-path': path.resolve('Data/DB/MySql/seeders'),
+  'migrations-path': path.resolve('Data/DB/MySql/migrations')
+};
