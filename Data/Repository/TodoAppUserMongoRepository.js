@@ -1,5 +1,5 @@
 import ITodoAppUserRepository from '../../Domain/Abstractions/ITodoAppUserRepository.js';
-import {User} from '../Schema/Mongo/user.model.js'
+import {User} from '../DB/Mongo/user.model.js'
 
 export default class TodoAppUserMongoRepository extends ITodoAppUserRepository {
 

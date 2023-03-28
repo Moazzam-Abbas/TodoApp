@@ -24,7 +24,7 @@ router.get('/oauthcallback', async (req, res) => {
 })
 
 router.post('/refresh-token', async (req, res) => {
-    const refreshToken = req.body.refreshToken;
+    const refreshToken = req.headers.authorization.split(' ')[1];;
     // Validate the refresh token
     if (!refreshToken) {
       return res.status(400).json({ error: 'Refresh token missing' });
@@ -34,9 +34,8 @@ router.post('/refresh-token', async (req, res) => {
     const accessToken = await googleAuth.refreshAccessToken(refreshToken);
   
     // Return the new access token to the client
-    return res.json(`Bearer ${accessToken}`);
+    return res.json(`oauth ${accessToken}`);
 })
-
 
 
 export {router}

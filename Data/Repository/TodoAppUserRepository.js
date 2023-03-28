@@ -39,7 +39,29 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
                 try {
 
                 const result = await User.findAll();
-                console.log(JSON.stringify(result)); // "result"
+               // console.log(JSON.stringify(result)); // "result"
+                return result;
+
+                } catch (error) {
+                    return {
+                        message:
+                          error.message || "Some error occurred while fetching All User Details."
+                      }
+                }
+
+               })();
+
+               return reponseMessage;
+    };
+
+    findOne = async (userId) => { 
+
+        const reponseMessage = await (async () => {
+               
+                try {
+
+                const result = await User.findOne({ where: { id: userId } });
+                console.log("User Found At Repository Level => "+JSON.stringify(result)); // "result"
                 return result;
 
                 } catch (error) {

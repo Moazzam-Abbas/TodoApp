@@ -37,7 +37,7 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
                 try {
 
                 const result = await TodoItems.findAll();
-                console.log(JSON.stringify(result)); // "result"
+               // console.log(JSON.stringify(result)); // "result"
                 return result;
 
                 } catch (error) {

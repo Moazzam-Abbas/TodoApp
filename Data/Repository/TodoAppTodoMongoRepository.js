@@ -1,5 +1,5 @@
 import ITodoAppTodoRepository from '../../Domain/Abstractions/ITodoAppTodoRepository.js';
-import {Todo} from '../Schema/Mongo/todo.model.js'
+import {Todo} from '../DB/Mongo/todo.model.js'
 
 export default class TodoAppTodoMongoRepository extends ITodoAppTodoRepository {
 
