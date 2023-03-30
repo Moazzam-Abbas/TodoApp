@@ -1,9 +1,10 @@
 import express from 'express';
 import userService from '../../Service/user.service.js';
 import {paginationMiddleware} from '../middleware/pagination.js';
+import {container} from '../DI/container.js'
 
 const router = express.Router()
-const user_Service = new userService(); //check later should implement depency injection here too
+const user_Service = container.resolve('userService'); //check later should implement depency injection here too
 
 // middleware defined for later use that is specific to this router
 router.use((req, res, next) => {

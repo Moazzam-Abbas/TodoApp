@@ -1,9 +1,10 @@
 import express from 'express';
 import todoService from '../../Service/todo.service.js';
 import {paginationMiddleware} from '../middleware/pagination.js';
+import {container} from '../DI/container.js'
 
 const router = express.Router()
-const todo_Service = new todoService();
+const todo_Service = container.resolve('todoService'); //check later should implement depency injection here too
 
 // middleware defined for later use that is specific to this router
 router.use((req, res, next) => {

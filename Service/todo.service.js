@@ -6,9 +6,9 @@ import TodoAppTodoMongoRepository from '../Data/Repository/TodoAppTodoMongoRepos
 
 export default class todoService extends ITodoAppTodoService {
 
-  constructor() {
+  constructor(todoRepo) {
     super()
-    this.repo = new TodoAppTodoRepository(); //need object here of repository interface implementation
+    this.repo = todoRepo; //need object here of repository interface implementation
   }
 
 // Create and Save a new ToDoItem

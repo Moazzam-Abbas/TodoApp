@@ -7,9 +7,9 @@ import TodoAppUserMongoRepository from '../Data/Repository/TodoAppUserMongoRepos
 
 export default class userService extends ITodoAppUserService {
 
-  constructor() {
+   constructor(userRepo) {
     super()
-    this.repo = new TodoAppUserRepository(); //need object here of repository interface implementation
+    this.repo = userRepo; //need object here of repository interface implementation
   }
 
   getAllPostsOfUser = (req, res) => { };
