@@ -12,6 +12,7 @@ import { authenticate } from './middleware/authentications.js';
 import { jwtStrategy } from './Helpers/jwtStrategy.js';
 import { refreshStrategy } from './Helpers/jwtStrategy.js';
 import passport from 'passport';
+import ErrorHandler from './middleware/errorHandler.js';
 
 const port = process.env.PORT || 3000;
 
@@ -45,6 +46,7 @@ app.get('/', (req, res) => {
   res.send(`App Landing without Routes! Login Status: ${req.session.user}`)
 })
 
+app.use(ErrorHandler)
 
 app.listen(port, () => {
   console.log(`Todo app listening on port ${port}`)

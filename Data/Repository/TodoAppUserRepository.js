@@ -81,9 +81,9 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
          const responseMessage = await (async () => {
 
                 try {
-                    const result = await User.update(userRequestObj.body, {
+                    const result = await User.update(userRequestObj.userData, {
                         where: {
-                          id: userRequestObj.id
+                          id: userRequestObj.userId
                         }
                       });
                     console.log(JSON.stringify(result)); // "result"
@@ -109,7 +109,7 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
                 try {
                     const result = await User.destroy({
                         where: {
-                            id: userId
+                            id: userId.id
                         }
                      });
                      console.log(JSON.stringify(result)); // "result"

@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {authenticateRefreshJwtToken} from '../middleware/authentications.js';
 import userService from '../../Service/user.service.js';
+import * as errors from '../../Error/Errors.js';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
@@ -29,12 +30,14 @@ router.post('/', async (req, res) => {
     const user = await user_Service.findOne(userName)
 
     if (!user) {
-      return res.status(400).send('Invalid username or password');
+      throw new errors.Unauthorized('Invalid username or password')
+     // return res.status(400).send('Invalid username or password');
     }
 
     const validPassword = bcrypt.compareSync(password, user.result.password);
     if (!validPassword) {
-      return res.status(400).send('Invalid username or password');
+      throw new errors.Unauthorized('Invalid username or password')
+     // return res.status(400).send('Invalid username or password');
     }
    
     // Generate JWT token
@@ -92,12 +95,12 @@ router.post('/refresh-token', authenticateRefreshJwtToken, async (req, res) => {
   
 })
 
-router.use((err, req, res, next) => {
-    if (err) {
-      console.error(err);
-      res.status(401).send('Caught in error middleware : Unauthorized');
-    }
-})
+//router.use((err, req, res, next) => {
+//    if (err) {
+//      console.error(err);
+//      res.status(401).send('Caught in error middleware : Unauthorized');
+//    }
+//})
 
 export {router}
 

@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import db from './index.js'
 
 const userSchema = new mongoose.Schema({
-  _id: { type: String, required: true, unique: true, alias: 'id' },
+  _id: { type: String, required: true, alias: 'id' },
   userName: { type: String, required: true, unique: true },
   password: { type: String, required: true }
 },{

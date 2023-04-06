@@ -6,7 +6,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon ./http/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "awilix": "^8.0.0",
     "axios": "^1.3.4",
     "bcrypt": "^5.1.0",
+    "chai": "^4.3.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
@@ -21,6 +22,7 @@
     "google-auth-library": "^8.7.0",
     "googleapis": "^112.0.0",
     "jsonwebtoken": "^9.0.0",
+    "mocha": "^10.2.0",
     "mongoose": "^7.0.1",
     "mysql2": "^3.1.2",
     "passport": "^0.6.0",

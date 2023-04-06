@@ -1,8 +1,7 @@
 import ITodoAppTodoService from '../Domain/Abstractions/ITodoAppTodoService.js'
-import UserFactory from '../Domain/Factories/UserFactory.js'
+import UserFactory from '../Service/Factories/UserFactory.js'
 import { v1 as uuidv1 } from 'uuid';
-import TodoAppTodoRepository from '../Data/Repository/TodoAppTodoRepository.js';
-import TodoAppTodoMongoRepository from '../Data/Repository/TodoAppTodoMongoRepository.js'
+
 
 export default class todoService extends ITodoAppTodoService {
 
@@ -21,10 +20,6 @@ export default class todoService extends ITodoAppTodoService {
     description: todoRequestDTO.description,
     userId: todoRequestDTO.userId
   })
-  // Save TodoItem in the database
-  const result = await this.repo.createTodoItem(todoItem);
-  //send reposnse
-  return result;
 
  };
 

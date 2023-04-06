@@ -9,7 +9,7 @@ import Sequelize from 'sequelize'
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT,
-  operatorsAliases: false,
+ // operatorsAliases: false,
 
   pool: {
     max: parseInt(process.env.DB_POOL_MAX),
@@ -44,5 +44,5 @@ db.TodoItems.belongsTo(db.User);
 //  await sequelize.sync()
 //      console.log("Synced db.");
 //  })();
-
+console.log("Connected to MySql")
 export default db;
