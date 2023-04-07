@@ -38,7 +38,7 @@ function isAuthenticated (req, res, next) {
 //app.use('/users', isAuthenticated, usersRoutes)
 app.use('/oauth', oauthRoutes)
 app.use('/jwt', jwtRoutes)
-app.use('/users', authenticate, usersRoutes)
+app.use('/users', usersRoutes)
 app.use('/todo', authenticate, todoRoutes)
 
 app.get('/', (req, res) => {

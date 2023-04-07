@@ -10,7 +10,11 @@ import { createQueryBus } from '../../Queries/query_Bus.js';
 import CreateUserCommandHandler from '../../Commands/CreateUser/CreateUserCommandHandler.js';
 import UpdateUserCommandHandler from '../../Commands/UpdateUser/UpdateUserCommandHandler.js';
 import DeleteUserCommandHandler from '../../Commands/DeleteUser/DeleteUserCommandHandler.js';
+import CreateTodoCommandHandler from '../../Commands/CreateTodo/CreateTodoCommandHandler.js';
+import UpdateTodoCommandHandler from '../../Commands/UpdateTodo/UpdateTodoCommandHandler.js';
+import DeleteTodoCommandHandler from '../../Commands/DeleteTodo/DeleteTodoCommandHandler.js';
 import FetchUsersQueryHandler from '../../Queries/FetchUsers/FetchUsersQueryHandler.js';
+import FetchTodosQueryHandler from '../../Queries/FetchTodos/FetchTodosQueryHandler.js';
 import UserFactory from '../../Service/Factories/UserFactory.js';
 
 const container = createContainer();
@@ -26,7 +30,11 @@ container.register({
   createUserCommandHandler: asClass(CreateUserCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
   updateUserCommandHandler: asClass(UpdateUserCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
   deleteUserCommandHandler: asClass(DeleteUserCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
+  createTodoCommandHandler: asClass(CreateTodoCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
+  updateTodoCommandHandler: asClass(UpdateTodoCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
+  deleteTodoCommandHandler: asClass(DeleteTodoCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
   fetchUsersQueryHandler: asClass(FetchUsersQueryHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
+  fetchTodosQueryHandler: asClass(FetchTodosQueryHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),
 });
 
 export {container}

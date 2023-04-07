@@ -28,6 +28,7 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "sequelize": "^6.28.2",
+    "supertest": "^6.3.3",
     "syringe": "^0.1.2",
     "typedi": "^0.10.0",
     "uuid": "^9.0.0"

@@ -39,10 +39,8 @@ const refreshStrategy = new JwtStrategy(optionsRefreshStartegy, async (jwt_paylo
   //console.log("RefreshToken in refreshStartegy "+ExtractJwt.fromAuthHeaderAsBearerToken()(jwt_payload.req))
   try {
     // Verify the refresh token in the database
-    const userId = jwt_payload.userId;
-
+    const {userId} = await jwt_payload;
     const isValid = await jwtHelper.verifyRefreshToken(userId);
-   
     if (!isValid) {
       return done(null, false);
     }

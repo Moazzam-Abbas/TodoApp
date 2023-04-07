@@ -5,13 +5,13 @@ export default class UpdateUserCommandHandler {
       }
 
     async handle(command) {
-      const { conatinsPassword } = this.userService.isValidUserUpdateCommand(command)
+      const { conatinsPassword } = this.userService.isValidUserUpdateCommand(command.userData)
       if (conatinsPassword) {
-        this.userService.passwordCompatibilityCheck(command.password)
-        const userPassword = command.password
-        const hashedPassword = this.userService.encryptPassword(command.password)
-        command.password = hashedPassword
-        this.userService.isPasswordSecured(userPassword, command.password)
+        this.userService.passwordCompatibilityCheck(command.userData.password)
+        const userPassword = command.userData.password
+        const hashedPassword = await this.userService.encryptPassword(command.userData.password)
+        command.userData.password = hashedPassword
+        this.userService.isPasswordSecured(userPassword, command.userData.password)
       }
       return await this.userService.UpdateUser(command);
     }

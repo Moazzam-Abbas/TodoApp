@@ -14,8 +14,6 @@ export default class CreateUserCommandHandler {
       this.userService.isValidUserCommand(command)
       this.userService.passwordCompatibilityCheck(command.password)
       const user = await this.userFactory.createUser({ userName: command.userName, password: command.password })
-      console.log( user)
-      //console.log(typeof command.password === "string", typeof user.password)
       this.userService.isPasswordSecured(command.password, user.password)
       this.userService.isValidUser(user)
       return await this.userService.createUser(user);

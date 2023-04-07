@@ -10,15 +10,13 @@ export default class UserFactory {
       }
     
    async createUser (args) {
-         // Hash the user's password
-         const hashedPassword = await this.userService.encryptPassword(args.password)
-         return new User(uuidv1(), args.userName, hashedPassword);
+        // Hash the user's password
+        const hashedPassword = await this.userService.encryptPassword(args.password)
+        return new User(uuidv1(), args.userName, hashedPassword);
     } 
 
-    createTodo (type, args) {
-        if (type == 'Todo') {
-            return new Todo(args.id, args.title, args.description, args.userId);
-        }
+    createTodo (args) { 
+        return new Todo(uuidv1(), args.title, args.description, args.userId);
     }
 
   }

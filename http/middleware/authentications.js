@@ -57,7 +57,7 @@ async function authenticateRefreshJwtToken (req, res, next) {
     if (!user) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
-   // console.log("in authentication Refresh midddleware "+user)
+    console.log("in authentication Refresh midddleware "+user)
     req.userId = user;
     next();
   })(req, res, next);

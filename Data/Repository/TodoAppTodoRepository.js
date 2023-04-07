@@ -57,13 +57,18 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
          const responseMessage = await (async () => {
 
                 try {
-                    const result = await TodoItems.update(todoRequestObj.body, {
+                    const result = await TodoItems.update(todoRequestObj.todoData, {
                         where: {
-                          id: todoRequestObj.id
+                          id: todoRequestObj.todoId
                         }
                       });
-                    console.log(JSON.stringify(result)); // "result"
-                    return result; 
+                      if (result[0] === 0) {
+                        // res.status(404).send("Record not found");
+                         return {status : 404, message: "Record not found"}
+                       } else {
+                         const rowsUpdated = result[0];
+                         return {status : 200, message: `Record was updated successfully. ${rowsUpdated} row(s) were updated.`}
+                       }
 
                 } catch (error) {
                     return {
@@ -85,11 +90,18 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
                 try {
                     const result = await TodoItems.destroy({
                         where: {
-                            id: todoId
+                            id: todoId.id
                         }
                      });
-                     console.log(JSON.stringify(result)); // "result"
-                     return { message: "todo item was deleted successfully !" }; 
+                     
+                     if (result === 0) {
+                        //  res.status(404).send("Record not found");
+                          return {status : 404, message: "Record not found"}
+                        } else {
+                          const rowsDeleted = result;
+                          return {status : 204, message: `Record was deleted successfully. ${rowsDeleted} row(s) were deleted.`}
+                        }
+
                 } catch (error) {
                     return {
                         message: "Could not delete todo item reason.... " + error.message

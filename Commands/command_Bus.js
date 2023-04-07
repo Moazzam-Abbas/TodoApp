@@ -7,6 +7,9 @@ function createCommandBus() {
   commandBus.registerHandler('CreateUserCommand', container.resolve('createUserCommandHandler'));
   commandBus.registerHandler('UpdateUserCommand', container.resolve('updateUserCommandHandler'));
   commandBus.registerHandler('DeleteUserCommand', container.resolve('deleteUserCommandHandler'));
+  commandBus.registerHandler('CreateTodoCommand', container.resolve('createTodoCommandHandler'));
+  commandBus.registerHandler('UpdateTodoCommand', container.resolve('updateTodoCommandHandler'));
+  commandBus.registerHandler('DeleteTodoCommand', container.resolve('deleteTodoCommandHandler'));
 
   return commandBus;
 }

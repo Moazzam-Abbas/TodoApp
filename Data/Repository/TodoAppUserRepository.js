@@ -18,8 +18,9 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
             try {
                 const result = await User.create(user);
                 // user exists in the database now!
-                console.log(result instanceof db.User); // true
-                console.log(JSON.stringify(result)); // "result"
+               // console.log(result instanceof db.User); // true
+              //  
+                console.log('user added successfully'); // "result"
                 return result;
             } catch (error) {
                 return {
@@ -59,8 +60,31 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
         const reponseMessage = await (async () => {
                
                 try {
-
+                console.log("In Repository "+userId)
                 const result = await User.findOne({ where: { id: userId } });
+                console.log("User Found At Repository Level => "+JSON.stringify(result)); // "result"
+                return result;
+
+                } catch (error) {
+                    return {
+                        message:
+                          error.message || "Some error occurred while fetching One User Details."
+                      }
+                }
+
+               })();
+
+               console.log("Reponse from db "+reponseMessage)
+               return reponseMessage;
+    };
+
+    findOneByUserName = async (userName) => { 
+
+        const reponseMessage = await (async () => {
+               
+                try {
+
+                const result = await User.findOne({ where: { userName: userName } });
                 console.log("User Found At Repository Level => "+JSON.stringify(result)); // "result"
                 return result;
 
@@ -86,16 +110,18 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
                           id: userRequestObj.userId
                         }
                       });
-                    console.log(JSON.stringify(result)); // "result"
-                    return result; 
+                 //   console.log(JSON.stringify(result)); // "result"
+                    if (result[0] === 0) {
+                       // res.status(404).send("Record not found");
+                        return {status : 404, message: "Record not found"}
+                      } else {
+                        const rowsUpdated = result[0];
+                        return {status : 200, message: `Record was updated successfully. ${rowsUpdated} row(s) were updated.`}
+                      }
 
                 } catch (error) {
-                    return {
-                        message:
-                          error.message || "Some error occurred while updating the User."
-                      }
+                    return {status: 200, message: error.message || "Some error occurred while updating the User."}
                 }
-
                 
               })();
             
@@ -112,8 +138,15 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
                             id: userId.id
                         }
                      });
-                     console.log(JSON.stringify(result)); // "result"
-                     return { message: "user was deleted successfully !" }; 
+                  //   console.log(JSON.stringify(result)); // "result"
+                   if (result === 0) {
+                  //  res.status(404).send("Record not found");
+                    return {status : 404, message: "Record not found"}
+                  } else {
+                    const rowsDeleted = result;
+                    return {status : 204, message: `Record was deleted successfully. ${rowsDeleted} row(s) were deleted.`}
+                  }
+                    
                 } catch (error) {
                     return {
                         message: "Could not delete user reason.... " + error.message

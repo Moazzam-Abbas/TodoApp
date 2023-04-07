@@ -36,6 +36,14 @@ export default class userService extends ITodoAppUserService {
 
   };
 
+  findOneByUserName = async (userName) => {
+
+    console.log(userName)
+    const result = await this.repo.findOneByUserName(userName);
+    return {result: result};
+
+  };
+
   UpdateUser = async (userRequestObj) => { 
     
     const result = await this.repo.UpdateUser(userRequestObj)

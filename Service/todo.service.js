@@ -1,6 +1,7 @@
 import ITodoAppTodoService from '../Domain/Abstractions/ITodoAppTodoService.js'
 import UserFactory from '../Service/Factories/UserFactory.js'
 import { v1 as uuidv1 } from 'uuid';
+import * as errors from '../Error/Errors.js'
 
 
 export default class todoService extends ITodoAppTodoService {
@@ -13,13 +14,10 @@ export default class todoService extends ITodoAppTodoService {
 // Create and Save a new ToDoItem
   create = async (todoRequestDTO) => {
 
-  // Create a TodoItem from factory 
-  const todoItem = UserFactory.createTodo('Todo', {
-    id: uuidv1(),
-    title: todoRequestDTO.title,
-    description: todoRequestDTO.description,
-    userId: todoRequestDTO.userId
-  })
+  // Save Todo in the database
+  const result = await this.repo.createTodoItem(todoRequestDTO);
+  //send response
+  return result;
 
  };
 
@@ -35,7 +33,7 @@ export default class todoService extends ITodoAppTodoService {
 // Update a ToDoItem by the id in the request
 // Update a ToDoItem identified by the id in the request
   update = async (todoRequestObj) => { 
-    
+    console.log("Servicelevel => "+todoRequestObj)
   const result = await this.repo.UpdateTodoItem(todoRequestObj)
   return result;
 };
@@ -83,5 +81,45 @@ return result;
   
 
 }
+
+Validator = (obj, propertyList) => {
+  const objProperties = Object.keys(obj);
+  const invalidProperties = objProperties.filter(prop => !propertyList.includes(prop));
+  if (invalidProperties.length > 0) {
+    throw new errors.InvalidPasswordError(`Invalid data found: ${invalidProperties.join(', ')}`)
+  }
+}
+
+isValidTodoCommand = (obj) => {
+  this.Validator(obj, ['title', 'description', 'userId'])
+}
+
+isValidTodo = (obj) => {
+    const propertyList = ['id', 'title']
+    const objProperties = Object.keys(obj);
+    if ('id' in obj && 'title' in obj) {
+      return true;
+    }
+    throw new errors.InvalidPasswordError(`More data needed to fullfil request: ${propertyList.filter(prop => !objProperties.includes(prop)).join(', ')}`)
+
+}
+
+isValidTodoUpdateCommand = (obj) => {
+  const propertyList = ['id', 'title', 'description', 'userId']
+  const objProperties = Object.keys(obj);
+  const invalidProperties = objProperties.filter(prop => !propertyList.includes(prop));
+  if (invalidProperties.length > 0) {
+    throw new errors.InvalidPasswordError(`Invalid data found: ${invalidProperties.join(', ')}`)
+  }
+  return true;
+}
+
+isValidTodoDeleteCommand = (obj) => {
+  if (!obj.id || !obj.id instanceof uuidv1) {
+    throw new errors.InvalidPasswordError(`Invalid data Input`)
+  }
+  return true
+}
+
 
 }

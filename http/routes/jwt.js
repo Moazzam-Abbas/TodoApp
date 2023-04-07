@@ -2,12 +2,13 @@ import express from 'express';
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import {authenticateRefreshJwtToken} from '../middleware/authentications.js';
+import { container } from '../DI/container.js';
 import userService from '../../Service/user.service.js';
 import * as errors from '../../Error/Errors.js';
 import * as dotenv from 'dotenv'
 dotenv.config()
 
-const user_Service = new userService(); //check later should implement depency injection here too
+const user_Service = container.resolve('userService') //check later should implement depency injection here too
 const router = express.Router()
 
 const secretKey = process.env.JWT_SECRET;
@@ -27,8 +28,7 @@ router.use((req, res, next) => {
 router.post('/', async (req, res) => {
     // Verify user credentials
     const { userName, password } = req.body;
-    const user = await user_Service.findOne(userName)
-
+    const user = await user_Service.findOneByUserName(userName)
     if (!user) {
       throw new errors.Unauthorized('Invalid username or password')
      // return res.status(400).send('Invalid username or password');
