@@ -8,6 +8,7 @@ export default class CreateUserCommandHandler {
     constructor(userService) {
      this.userService = userService
      this.userFactory = container.resolve('userFactory')
+     this.notificationService = container.resolve('notificationService')
     }
 
     async handle(command) {
@@ -16,7 +17,10 @@ export default class CreateUserCommandHandler {
       const user = await this.userFactory.createUser({ userName: command.userName, password: command.password })
       this.userService.isPasswordSecured(command.password, user.password)
       this.userService.isValidUser(user)
-      return await this.userService.createUser(user);
+      const response = await this.userService.createUser(user)
+      const notification = this.userService.prepareNotification(user);
+      this.notificationService.notify(notification)
+      return response;
     }
     
   }

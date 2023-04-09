@@ -1,4 +1,7 @@
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { createContainer, asClass, asFunction, asValue, InjectionMode } from 'awilix';
+import { OAuth2Client } from 'google-auth-library'
 import TodoAppUserRepository from '../../Data/Repository/TodoAppUserRepository.js';
 import UserService from '../../Service/user.service.js';
 import TodoService from '../../Service/todo.service.js';
@@ -16,15 +19,21 @@ import DeleteTodoCommandHandler from '../../Commands/DeleteTodo/DeleteTodoComman
 import FetchUsersQueryHandler from '../../Queries/FetchUsers/FetchUsersQueryHandler.js';
 import FetchTodosQueryHandler from '../../Queries/FetchTodos/FetchTodosQueryHandler.js';
 import UserFactory from '../../Service/Factories/UserFactory.js';
+import EmailNotifier from '../../Infrastructure/Notifiers/emailNotifier.js';
+import {createNotificationService} from '../../Service/Notifications/notication_service.js';
 
 const container = createContainer();
 
 container.register({
+  googleOAuth2Client: asValue(new OAuth2Client({ clientId: process.env.Google_Client_ID, clientSecret: process.env.Google_Client_SECRET, redirectUri: process.env.Google_Client_REDIRECTURI,
+  })),
+  emailNotifier: asClass(EmailNotifier).singleton().setInjectionMode(InjectionMode.CLASSIC),
   userFactory: asClass(UserFactory).singleton().setInjectionMode(InjectionMode.CLASSIC),
   todoRepo: asClass(TodoAppTodoRepository).setInjectionMode(InjectionMode.CLASSIC),
   todoService: asClass(TodoService).singleton().setInjectionMode(InjectionMode.CLASSIC),
   userRepo: asClass(TodoAppUserRepository).singleton().setInjectionMode(InjectionMode.CLASSIC),
   userService: asClass(UserService).singleton().setInjectionMode(InjectionMode.CLASSIC),
+  notificationService: asFunction(createNotificationService).singleton().setInjectionMode(InjectionMode.CLASSIC),
   commandBus: asFunction(createCommandBus).singleton().setInjectionMode(InjectionMode.CLASSIC),
   queryBus: asFunction(createQueryBus).singleton().setInjectionMode(InjectionMode.CLASSIC),
   createUserCommandHandler: asClass(CreateUserCommandHandler).singleton().setInjectionMode(InjectionMode.CLASSIC),

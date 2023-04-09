@@ -181,6 +181,10 @@ export default class userService extends ITodoAppUserService {
     return true
   }
   
+  prepareNotification = (user) => {
+    return { recipient: 'moazzam.abbas@carbonteq.com', subject: 'Test Email', body: `Hello, this is a test email for user: ${user.userName} registration.` }
+  }
+
   totalPostsCount = (user) => { };
   
 }
