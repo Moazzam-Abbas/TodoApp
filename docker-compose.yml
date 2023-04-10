@@ -1,0 +1,28 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    container_name: mysqlcontainer
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Carbon@123
+      MYSQL_DATABASE: ToDoApp
+  mongo:
+    image: mongo
+    container_name: mymongocontainer
+    restart: always
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - mongo
+    volumes:
+      - /app/node_modules
+      - .:/app
+

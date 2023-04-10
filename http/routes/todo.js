@@ -17,10 +17,15 @@ router.use((req, res, next) => {
   next()
 })
 
-router.get('/', paginationMiddleware(todo_Service), async (req, res) => {
+router.get('/', paginationMiddleware(todo_Service), async (req, res, next) => {
+  try {
     const query = new FetchTodosQuery();
     const response = await queryBus.execute(query);
-    res.status(200).send(response);
+    res.status(200).send(response);  
+  } catch (error) {
+    next(error);
+  }
+    
 })
 
 router.post('/', async (req, res, next) => {
@@ -33,20 +38,29 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res) => {
-  console.log("hit update")
-  const command = new UpdateTodoCommand(req.params.id, req.body)
-  const response = await commandBus.dispatch(command);
-  const { status, message } = response;
-  res.status(status).send({message: message});
+router.put('/:id', async (req, res, next) => {
+  try {
+    const command = new UpdateTodoCommand(req.params.id, req.body)
+    const response = await commandBus.dispatch(command);
+    const { status, message } = response;
+    res.status(status).send({message: message});
+  } catch (error) {
+    next(error);
+  }
+  
 })
 
 
-router.delete('/:id', async (req, res) => {
-  const command = new DeleteTodoCommand(req.params.id)
-  const response = await commandBus.dispatch(command);
-  const { status, message } = response;
-  res.status(status).send({message: message});
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const command = new DeleteTodoCommand(req.params.id)
+    const response = await commandBus.dispatch(command);
+    const { status, message } = response;
+    res.status(status).send({message: message});
+  } catch (error) {
+    next(error);
+  }
+  
 })
 
 

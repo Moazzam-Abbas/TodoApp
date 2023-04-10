@@ -25,7 +25,9 @@ router.use((req, res, next) => {
 })
 
 //route for generating jwt(Loging In)
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
+
+  try {
     // Verify user credentials
     const { userName, password } = req.body;
     const user = await user_Service.findOneByUserName(userName)
@@ -54,9 +56,13 @@ router.post('/', async (req, res) => {
     });
 
     res.send({ 'access_token' : `Bearer ${token}`, 'refresh_token' : `Bearer ${refreshToken}`});
+  } catch (error) {
+    next(error);
+  }
+    
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', async (req, res, next) => {
 
   try {
     const { userName, password } = req.body;
@@ -81,17 +87,22 @@ router.post('/register', async (req, res) => {
     res.send(response);
 
   } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal server error');
+    next(error);
+    //console.log(error);
+    //res.status(500).send('Internal server error');
   }
 
 })
 
-router.post('/refresh-token', authenticateRefreshJwtToken, async (req, res) => {
+router.post('/refresh-token', authenticateRefreshJwtToken, async (req, res, next) => {
 
-  // Generate JWT token
-  const token = jwt.sign({ userId: req.userId }, secretKey, { expiresIn: tokenExpirationTime, algorithm: 'HS256'});
-  res.status(200).send({ 'access_token' : `Bearer ${token}`});
+  try {
+    // Generate JWT token
+    const token = jwt.sign({ userId: req.userId }, secretKey, { expiresIn: tokenExpirationTime, algorithm: 'HS256'});
+    res.status(200).send({ 'access_token' : `Bearer ${token}`});
+  } catch (error) {
+    next(error);
+  }
   
 })
 

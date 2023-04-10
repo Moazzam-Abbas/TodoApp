@@ -20,11 +20,16 @@ router.use((req, res, next) => {
   next()
 })
 
-router.get('/', authenticate, paginationMiddleware(user_Service), async (req, res) => {
+router.get('/', authenticate, paginationMiddleware(user_Service), async (req, res, next) => {
+  try {
     //const response = await user_Service.findAllUser(req);
     const query = new FetchUsersQuery();
     const response = await queryBus.execute(query);
     res.status(200).send(response);
+  } catch (error) {
+    next(error);
+  }  
+  
 })
 
 router.post('/', async (req, res, next) => {
@@ -40,20 +45,30 @@ router.post('/', async (req, res, next) => {
  
 })
 
-router.put('/:id', authenticate, async (req, res) => {
-  //const response = await user_Service.UpdateUser({id:req.params.id, body:req.body});
-  const command = new UpdateUserCommand(req.params.id, req.body)
-  const response = await commandBus.dispatch(command);
-  const { status, message } = response;
-  res.status(status).send({message: message});
+router.put('/:id', authenticate, async (req, res, next) => {
+  try {
+    //const response = await user_Service.UpdateUser({id:req.params.id, body:req.body});
+    const command = new UpdateUserCommand(req.params.id, req.body)
+    const response = await commandBus.dispatch(command);
+    const { status, message } = response;
+    res.status(status).send({message: message});
+  } catch (error) {
+    next(error);
+  }
+  
 })
 
-router.delete('/:id', authenticate, async (req, res) => {
-  //const response = await user_Service.deleteUser(req.params.id);
-  const command = new DeleteUserCommand(req.params.id)
-  const response = await commandBus.dispatch(command);
-  const { status, message } = response;
-  res.status(status).send({message: message});
+router.delete('/:id', authenticate, async (req, res, next) => {
+  try {
+    //const response = await user_Service.deleteUser(req.params.id);
+    const command = new DeleteUserCommand(req.params.id)
+    const response = await commandBus.dispatch(command);
+    const { status, message } = response;
+    res.status(status).send({message: message});
+  } catch (error) {
+    next(error);
+  }
+  
 })
 
 
