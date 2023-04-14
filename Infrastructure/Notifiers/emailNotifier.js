@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-import INotifier from "../../Service/Notifications/INotifier.js";
+import INotifier from "../../Domain/Abstractions/INotifier.js";
 import { google } from 'googleapis'
 
 export default class EmailNotifier extends INotifier{

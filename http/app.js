@@ -9,8 +9,8 @@ import { router as todoRoutes } from './routes/todo.js';
 import { router as oauthRoutes } from './routes/oauth.js';
 import { router as jwtRoutes } from './routes/jwt.js';
 import { authenticate } from './middleware/authentications.js';
-import { jwtStrategy } from './Helpers/jwtStrategy.js';
-import { refreshStrategy } from './Helpers/jwtStrategy.js';
+import { jwtStrategy } from '../Infrastructure/Services/jwtStrategy.js';
+import { refreshStrategy } from '../Infrastructure/Services/jwtStrategy.js';
 import passport from 'passport';
 import ErrorHandler from './middleware/errorHandler.js';
 
@@ -52,3 +52,4 @@ app.listen(port, () => {
   console.log(`Todo app listening on port ${port}`)
 })
 
+export {app}

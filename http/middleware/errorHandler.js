@@ -1,7 +1,9 @@
-import CustomError from "../../Error/CustomError.js";
+import CustomError from "../../Infrastructure/Error/CustomError.js";
+import {logger} from "../../Infrastructure/Logger/logger.js"
 
 export default function ErrorHandler(err, req, res, next) {
     if (err instanceof CustomError) {
+      logger.error(err)
       res.status(err.statusCode).json({
         error: {
           message: err.message,
@@ -9,7 +11,8 @@ export default function ErrorHandler(err, req, res, next) {
         }
       });
     } else {
-      console.error(err);
+     // console.error(err);
+      logger.error(err)
       res.status(500).json({
         error: {
           name: 'InternalServerError',
