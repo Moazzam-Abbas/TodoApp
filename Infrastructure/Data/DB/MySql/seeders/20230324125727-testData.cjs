@@ -4,11 +4,11 @@ module.exports = {
     up: async (queryInterface, Sequelize) => {
       try {
         const records = [
-          { id: uuidv1(), userName: "May", password: '890' },
-          { id: uuidv1(), userName: "June", password: '890' },
-          { id: uuidv1(), userName: "July", password: '890' },
-          { id: uuidv1(), userName: "Aug", password: '890' },
-          { id: uuidv1(), userName: "Sep", password: '890' },
+          { id: uuidv1(), userName: "Miller", password: 'Password123!' },
+          { id: uuidv1(), userName: "Kate", password: 'Password123!' },
+          { id: uuidv1(), userName: "Jane", password: 'Password123!' },
+          { id: uuidv1(), userName: "Argo", password: 'Password123!' },
+          { id: uuidv1(), userName: "William", password: 'Password123!' },
         ];
 
       await queryInterface.bulkInsert('user', records, { returning: true });

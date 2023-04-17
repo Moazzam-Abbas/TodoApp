@@ -1,12 +1,9 @@
 import { expect } from 'chai';
-import User from '../../Domain/Entities/User.js';
+import UserValidations from '../Validations/UserValidations.js';
 
 describe('Starting Unit Tests', () => {
-
     describe('User Password Compatibility Checks', function () {
-        
-      //  let userService = null;
-
+ 
         before(() => {
             // This code runs before any tests in the describe block
             const userRepository = {
@@ -17,19 +14,17 @@ describe('Starting Unit Tests', () => {
                 deleteUser(userId) { },
                 paginate(startIndex, endIndex) { },
             };
-            //userService = new UserService(null);
         });
-
+ 
         after(() => {
             // This code runs after all tests in the describe block
-           // userService = null;
         });
 
         it('should return true for a valid password', () => {
             // Arrange
             const password = 'Password123!';
             // Act
-            const result = User.passwordCompatibilityCheck(password);
+            const result = UserValidations.passwordCompatibilityCheck(password);
             // Assert
             expect(result.isComplex).to.be.true;
         });
@@ -40,7 +35,7 @@ describe('Starting Unit Tests', () => {
             // Act
             let error;
             try {
-                const result = User.passwordCompatibilityCheck(password);
+                const result = UserValidations.passwordCompatibilityCheck(password);
                 // If the function call succeeds, check that the result is false
                 expect(result.isComplex).to.be.false;
             } catch (err) {
@@ -56,7 +51,7 @@ describe('Starting Unit Tests', () => {
             // Act
             let error;
             try {
-                const result = User.passwordCompatibilityCheck(password);
+                const result = UserValidations.passwordCompatibilityCheck(password);
                 // If the function call succeeds, check that the result is false
                 expect(result.isComplex).to.be.false;
             } catch (err) {
@@ -72,7 +67,7 @@ describe('Starting Unit Tests', () => {
             // Act
             let error;
             try {
-                const result = User.passwordCompatibilityCheck(password);
+                const result = UserValidations.passwordCompatibilityCheck(password);
                 // If the function call succeeds, check that the result is false
                 expect(result.isComplex).to.be.false;
             } catch (err) {
@@ -88,7 +83,7 @@ describe('Starting Unit Tests', () => {
             // Act
             let error;
             try {
-                const result = User.passwordCompatibilityCheck(password);
+                const result = UserValidations.passwordCompatibilityCheck(password);
                 // If the function call succeeds, check that the result is false
                 expect(result.isComplex).to.be.false;
             } catch (err) {
@@ -104,7 +99,7 @@ describe('Starting Unit Tests', () => {
             // Act
             let error;
             try {
-                const result = User.passwordCompatibilityCheck(password);
+                const result = UserValidations.passwordCompatibilityCheck(password);
                 // If the function call succeeds, check that the result is false
                 expect(result.isComplex).to.be.false;
             } catch (err) {
@@ -113,9 +108,7 @@ describe('Starting Unit Tests', () => {
             // Assert
             expect(error).to.exist;
         });
-
     });
-
 })
 
 

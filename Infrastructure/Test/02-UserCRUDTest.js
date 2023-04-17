@@ -1,12 +1,13 @@
-import chai from 'chai';
+import * as dotenv from 'dotenv'
+dotenv.config()
 import { expect } from 'chai';
 import supertest from 'supertest';
-//import app from '../app'; // Your Express app
 
-const request = supertest('http://localhost:3000');
+const port = process.env.PORT || 3000;
+const request = supertest(`http://localhost:${port}`);
 
 describe('Starting Integration Tests', () => {
-
+    
     let createdId;
     let todoId;
 
@@ -42,14 +43,13 @@ describe('Starting Integration Tests', () => {
             //Assert
             expect(res.status).to.equal(200);
             expect(res.body).to.have.property('access_token')
-            //expect(res.body).to.have.property('id');
-            // expect(res.body.title).to.equal('Test Record');
         });
-
     })
 
     describe('User API', () => {
+
         let authToken;
+
         before(async () => {
             // This code runs before any tests in the describe block
             const user = {
@@ -66,8 +66,6 @@ describe('Starting Integration Tests', () => {
             //Assert
             expect(res.status).to.equal(200);
             expect(res.body).to.have.property('result').that.is.an('array');
-            //expect(res.body).to.have.property('id');
-            // expect(res.body.title).to.equal('Test Record');
         });
 
         it('should update a user by id', async () => {
@@ -84,7 +82,9 @@ describe('Starting Integration Tests', () => {
     })
 
     describe('Todo API', () => {
+
         let authToken;
+
         before(async () => {
             // This code runs before any tests in the describe block
             const user = {
@@ -121,8 +121,6 @@ describe('Starting Integration Tests', () => {
             //Assert
             expect(res.status).to.equal(200);
             expect(res.body).to.have.property('result').that.is.an('array');
-            //expect(res.body).to.have.property('id');
-            // expect(res.body.title).to.equal('Test Record');
         });
 
         it('should update an item', async () => {
@@ -149,6 +147,7 @@ describe('Starting Integration Tests', () => {
     describe('Clearance of Test Setup', () => {
 
         let authToken;
+
         before(async () => {
             // This code runs before any tests in the describe block
             const user = {

@@ -1,4 +1,3 @@
-//import * as dotenv from 'dotenv'
 const dotenv = require('dotenv');
 dotenv.config()
 
@@ -11,4 +10,4 @@ module.exports = {
       dialect: process.env.DB_DIALECT,
       port: process.env.DB_PORT
     }
-  };
+};

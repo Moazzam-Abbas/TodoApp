@@ -1,4 +1,3 @@
-import passport from 'passport';
 import { Strategy as JwtStrategy } from 'passport-jwt';
 import { ExtractJwt as ExtractJwt } from 'passport-jwt';
 import jwtHelper from './jwtHelper.js';
@@ -21,7 +20,6 @@ const jwtStrategy = new JwtStrategy(options, (jwt_payload, done) => {
     console.log("token: expired")
     return done(null, false);
   }
-
   // Return the user object
   return done(null, jwt_payload.userId);
 });
@@ -34,9 +32,6 @@ const optionsRefreshStartegy = {
 };
 
 const refreshStrategy = new JwtStrategy(optionsRefreshStartegy, async (jwt_payload, done) => {
-  
-  //kept below comment for later use
-  //console.log("RefreshToken in refreshStartegy "+ExtractJwt.fromAuthHeaderAsBearerToken()(jwt_payload.req))
   try {
     // Verify the refresh token in the database
     const {userId} = await jwt_payload;

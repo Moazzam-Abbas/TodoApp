@@ -1,4 +1,4 @@
-export default class ITodoAppTodoRepository {
+export default class IAuthenticationService {
 
     generateAccessToken = () => { };
     refreshAccessToken = () => { };

@@ -1,4 +1,3 @@
-//import dbConfig from '../../../config/db.config.mjs'
 import * as dotenv from 'dotenv'
 dotenv.config()
 import todoItem from './todo.js'
@@ -10,7 +9,6 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   dialect: process.env.DB_DIALECT,
- // operatorsAliases: false,
 
   pool: {
     max: parseInt(process.env.DB_POOL_MAX),
@@ -28,8 +26,6 @@ db.sequelize = sequelize;
 db.TodoItems = todoItem(sequelize, DataTypes);
 db.User = User(sequelize, DataTypes);
 
-//db.TodoItems = sequelize.models.TodoItem
-//db.User = sequelize.models.User
 
 //association 
 db.User.hasMany(db.TodoItems, {

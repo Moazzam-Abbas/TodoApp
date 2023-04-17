@@ -13,11 +13,11 @@ export default class JwtController {
 
     }
 
-    static async generateRefreshToken(req, res, next) {
+    static async refreshAccessToken(req, res, next) {
       // Validate incoming request data
         try {
         // Generate JWT token
-        const response = await jwtHelper.generateRefreshToken(req)
+        const response = await jwtHelper.refreshAccessToken(req)
         res.status(200).send(response);
         } catch (error) {
           next(error);

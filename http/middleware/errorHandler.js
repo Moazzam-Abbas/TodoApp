@@ -11,7 +11,7 @@ export default function ErrorHandler(err, req, res, next) {
         }
       });
     } else {
-     // console.error(err);
+      
       logger.error(err)
       res.status(500).json({
         error: {

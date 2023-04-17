@@ -1,6 +1,7 @@
 import { OAuth2Client } from 'google-auth-library'
+import IAuthenticationService from '../../Domain/Abstractions/IAuthenticationService.js';
 
-export default class googleAuth {
+export default class googleAuth extends IAuthenticationService{
 
 // Set up OAuth2 client
 static client = new OAuth2Client({

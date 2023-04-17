@@ -29,13 +29,12 @@ passport.initialize();
 passport.use('jwt', jwtStrategy)
 passport.use('refresh', refreshStrategy)
 
-// middleware to memic authentication
+// middleware to memic authentication through sessions
 function isAuthenticated (req, res, next) {
   if (req.session.user) next()
   else res.send("Please login first to access")
 }
 
-//app.use('/users', isAuthenticated, usersRoutes)
 app.use('/oauth', oauthRoutes)
 app.use('/jwt', jwtRoutes)
 app.use('/users', usersRoutes)
@@ -48,6 +47,7 @@ app.get('/', (req, res) => {
 
 app.use(ErrorHandler)
 
+//app listening for debuging purposes
 app.listen(port, () => {
   console.log(`Todo app listening on port ${port}`)
 })
