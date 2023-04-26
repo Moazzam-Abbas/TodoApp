@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import * as errors from '../../Infrastructure/Error/Errors.js'
 import { container } from '../DI/container.js';
-import IAuthenticationService from '../../Domain/Abstractions/IAuthenticationService.js'
+import IAuthenticationService from '../../Domain/Interfaces/IAuthenticationService.js'
 
 export default class jwtHelper extends IAuthenticationService{
 

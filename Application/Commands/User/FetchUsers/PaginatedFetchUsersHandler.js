@@ -1,3 +1,6 @@
+import PaginationOptions from "../../../../Infrastructure/utils/PaginationOptions.js";
+import PaginationData from "../../../../Infrastructure/utils/PaginationData.js";
+import * as errors from '../../../../Infrastructure/Error/Errors.js'
 
 export default class PaginatedFetchUsersHandler {
 
@@ -6,35 +9,22 @@ export default class PaginatedFetchUsersHandler {
       }
 
     async handle(command) {
-      
+        
       const result = {};
       const page = parseInt(command.requestPage, 10) 
       const limit = parseInt(command.requestlimit, 10)
       if (isNaN(page) || isNaN(limit)){
-        return result.error = "Invalid Pagination Limits"
+        throw new errors.InvalidInputError('Invalid Pagination limits entered')
       }
-
-      const startIndex = (page - 1) * limit;
-      const endIndex = page * limit;
-      const { count, rows, error } = await this.repo.paginate(startIndex, limit);
-  
+      const paginationOptions = new PaginationOptions(page, limit)
+      const itemsCount = await this.repo.totalCount()
+      const paginationData = new PaginationData(paginationOptions, itemsCount)
+      const { count, rows, error } = await this.repo.paginate(paginationOptions.offset(), limit);
       if(error){
-        return result.error = "error while fetching rows or calculating total"
+        throw error
       }
   
-      if (endIndex < count) {
-        result.next = {
-          page: page + 1,
-          limit: limit,
-        };
-      }
-      if (startIndex > 0) {
-        result.previous = {
-          page: page - 1,
-          limit: limit,
-      };
-      }
-
+      result.paginationInfo = paginationData.getPaginatedInfo()
       result.result = rows;
       return result;
     }

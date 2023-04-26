@@ -1,4 +1,4 @@
-import ITodoAppTodoRepository from '../../../../Domain/Abstractions/ITodoAppTodoRepository.js';
+import ITodoAppTodoRepository from '../../../../Domain/Interfaces/ITodoAppTodoRepository.js';
 import * as errors from '../../../../Infrastructure/Error/Errors.js'
 import {Todo} from '../../DB/Mongo/todo.model.js'
 

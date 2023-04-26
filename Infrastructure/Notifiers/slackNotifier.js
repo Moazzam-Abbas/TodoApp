@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 dotenv.config()
-import INotifier from "../../Domain/Abstractions/INotifier.js";
+import INotifier from "../../Domain/Interfaces/INotifier.js";
 
 export default class SlackNotifier extends INotifier{
 

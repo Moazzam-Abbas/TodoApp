@@ -5,5 +5,5 @@ export default class ITodoAppTodoRepository {
     UpdateTodoItem = (todoRequestObj) => { };
     deleteTodoItem = (todoId) => { };
     paginate = async (startIndex, endIndex) => { };
-    
+    totalCount = async () => { };
 }

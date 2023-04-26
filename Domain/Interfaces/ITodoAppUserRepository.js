@@ -7,5 +7,5 @@ export default class ITodoAppUserRepository {
     UpdateUser = async (userRequestObj) => {};
     deleteUser = async (userId) => { };
     paginate = async (startIndex, endIndex) => { };
-
+    totalCount = async () => { };
 }

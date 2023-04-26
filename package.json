@@ -5,7 +5,7 @@
   "description": "ToDoApp for concepts revision",
   "main": "app.js",
   "scripts": {
-    "dev": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && nodemon ./http/app.js",
+    "dev": "nodemon ./http/app.js",
     "test": "mocha ./Test",
     "start": "node ./bin/www.js"
   },

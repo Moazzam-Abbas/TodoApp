@@ -1,4 +1,4 @@
-import ITodoAppTodoRepository from '../../../../Domain/Abstractions/ITodoAppTodoRepository.js';
+import ITodoAppTodoRepository from '../../../../Domain/Interfaces/ITodoAppTodoRepository.js';
 import * as errors from '../../../../Infrastructure/Error/Errors.js'
 import db from '../../DB/MySql/models/index.js'
 const {TodoItems} = db
@@ -76,5 +76,16 @@ export default class TodoAppTodoRepository extends ITodoAppTodoRepository {
       return responseMessage;
     };
     
+    totalCount = async () => {
+      const responseMessage = await (async () => {           
+        try {
+          return await TodoItems.count();
+        } catch (error) {
+          throw error
+      }
+      })();
+      return responseMessage;
+    };
+
 }
 

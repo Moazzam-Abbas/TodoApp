@@ -1,4 +1,4 @@
-import ITodoAppUserRepository from '../../../../Domain/Abstractions/ITodoAppUserRepository.js';
+import ITodoAppUserRepository from '../../../../Domain/Interfaces/ITodoAppUserRepository.js';
 import {User} from '../../DB/Mongo/user.model.js'
 import * as errors from '../../../../Infrastructure/Error/Errors.js'
 

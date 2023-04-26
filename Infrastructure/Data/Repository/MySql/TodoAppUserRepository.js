@@ -1,4 +1,4 @@
-import ITodoAppUserRepository from '../../../../Domain/Abstractions/ITodoAppUserRepository.js';
+import ITodoAppUserRepository from '../../../../Domain/Interfaces/ITodoAppUserRepository.js';
 import * as errors from '../../../../Infrastructure/Error/Errors.js'
 import db from '../../DB/MySql/models/index.js'
 const {User} = db
@@ -92,4 +92,14 @@ export default class TodoAppUserRepository extends ITodoAppUserRepository{
       return responseMessage;
     };
 
+    totalCount = async () => {
+      const responseMessage = await (async () => {           
+        try {
+          return await User.count();
+        } catch (error) {
+          throw error
+      }
+      })();
+      return responseMessage;
+    };
 }
